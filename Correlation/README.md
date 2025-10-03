@@ -1,4 +1,4 @@
-# 📊 Pearson Correlation Analysis: x vs y
+# Pearson Correlation Analysis: x vs y
 
 This project analyzes the linear relationship between two variables, `x` and `y`, using the **Pearson correlation coefficient**. It also visualizes the data with a scatter plot and regression line to help interpret the correlation.
 
