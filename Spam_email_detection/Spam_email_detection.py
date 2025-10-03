@@ -10,32 +10,32 @@ from sklearn.metrics import confusion_matrix, accuracy_score
 # The CSV file contains email features and a binary label indicating spam (1) or legitimate (0)
 data = pd.read_csv("g_sharabidze2024_938274.csv")
 
-# Step 2: Select relevant features and target variable
+# Select relevant features and target variable
 # Features: number of words, links, capitalized words, and spammy words
 # Target: is_spam (1 = spam, 0 = legitimate)
 X = data[["words", "links", "capital_words", "spam_word_count"]]
 y = data["is_spam"]
 
-# Step 3: Split the data into training and testing sets
+# Step 2: Split the data into training and testing sets
 # 70% for training, 30% for testing to evaluate model performance
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
-# Step 4: Train a logistic regression model
+# Step 3: Train a logistic regression model
 # Logistic regression is suitable for binary classification tasks like spam detection
 model = LogisticRegression(max_iter=1000)
 model.fit(X_train, y_train)
 
-# Step 5: Print model coefficients
+# Step 4: Print model coefficients
 # These values show how each feature influences the prediction
 print("\nModel Coefficients:")
 for feature, coef in zip(X.columns, model.coef_[0]):
     print(f"{feature}: {coef:.4f}")
 
-# Step 6: Evaluate the model on the test set
+# Step 5: Evaluate the model on the test set
 # Predict labels for the test data
 y_pred = model.predict(X_test)
 
-# Step 7: Calculate confusion matrix and accuracy
+# Calculate confusion matrix and accuracy
 # Confusion matrix shows true/false positives and negatives
 # Accuracy shows overall correct predictions
 conf_matrix = confusion_matrix(y_test, y_pred)
@@ -45,7 +45,7 @@ print("\nConfusion Matrix:")
 print(conf_matrix)
 print(f"\nAccuracy: {accuracy:.2%}")
 
-# Step 8: Define a function to extract features from raw email text
+# Step 6: Define a function to extract features from raw email text
 # This simulates real-world email parsing and feature engineering
 def extract_features(email_text):
     words = len(email_text.split())
@@ -55,7 +55,7 @@ def extract_features(email_text):
     spam_word_count = sum(email_text.lower().count(word) for word in spammy_words)
     return pd.DataFrame([[words, links, capital_words, spam_word_count]], columns=X.columns)
 
-# Step 9: Classify a new email using the trained model
+# Step 7: Classify a new email using the trained model
 def classify_email(email_text):
     features = extract_features(email_text)
     prediction = model.predict(features)[0]
@@ -64,15 +64,15 @@ def classify_email(email_text):
     print("Extracted Features:")
     print(features.to_string(index=False))
 
-# Step 10: Test with a manually created spam email
+# Test with a manually created spam email
 spam_email = "URGENT! Click here to WIN free money now! Visit http://spam.com for your offer."
 classify_email(spam_email)
 
-# Step 11: Test with a manually created legitimate email
+# Test with a manually created legitimate email
 legit_email = "Dear team, please find attached the report for Q3. Let me know if you have any questions."
 classify_email(legit_email)
 
-# Step 12: Visualization 1 - Spam vs Legitimate distribution
+# Visualization 1 - Spam vs Legitimate distribution
 # Helps understand class balance in the dataset
 plt.figure(figsize=(6, 4))
 sns.countplot(x="is_spam", data=data)
@@ -83,7 +83,7 @@ plt.tight_layout()
 plt.savefig("spam_legit_distribution.png")
 plt.show()
 
-# Step 13: Visualization 2 - Feature correlation heatmap
+# Visualization 2 - Feature correlation heatmap
 # Shows how features relate to each other and to the target label
 plt.figure(figsize=(8, 6))
 sns.heatmap(data.corr(), annot=True, cmap="coolwarm", fmt=".2f")

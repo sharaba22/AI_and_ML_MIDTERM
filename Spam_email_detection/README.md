@@ -6,13 +6,15 @@ This Python console application classifies emails as **spam** or **legitimate** 
 
 ## Dataset
 
-The dataset used is [`g_sharabidze2024_938274.csv`](https://github.com/your-username/your-repo-name/blob/main/g_sharabidze2024_938274.csv), which contains the following features:
+The dataset used is [`g_sharabidze2024_938274.csv`](https://github.com/sharaba22/AI_and_ML_MIDTERM/blob/main/Spam_email_detection/g_sharabidze2024_938274.csv), which contains the following features:
 
 - `words`: total word count in the email
 - `links`: number of links (e.g., "http", "www")
 - `capital_words`: number of fully capitalized words
 - `spam_word_count`: number of spammy keywords (e.g., "free", "win", "money")
 - `is_spam`: target label (1 = spam, 0 = legitimate)
+
+Note: click name of the file to view the dataset on GitHub.
 
 ---
 
@@ -56,16 +58,37 @@ accuracy = accuracy_score(y_test, y_pred)
 ```
 
 ## Confusion Matrix
+The confusion matrix summarizes the model's classification results:
 
+```python
 [[TN FP]
 
 [FN TP]]
+```
 
+- TN (True Negatives): Legitimate emails correctly classified as legitimate
+- FP (False Positives): Legitimate emails incorrectly classified as spam
+- FN (False Negatives): Spam emails incorrectly classified as legitimate
+- TP (True Positives): Spam emails correctly classified as spam
+
+Example output:
+```python
+[[105  10]
+
+[  7 128]]
+```
 
 ## Accuracy
+Accuracy measures the proportion of correctly classified emails out of all predictions:
 
+```python
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accuracy:.2%}")
+```
+Example output:
+```python
 Accuracy: 94.13%
-
+```
 ---
 ## Email Text Classification
 
@@ -119,23 +142,16 @@ def classify_email(email_text):
 ```python
 sns.countplot(x="is_spam", data=data)
 ```
+![Spam vs Legitimate Distribution](spam_legit_distribution.png)
 - Shows class balance in the dataset
+
 
 ### Feature Correlation Heatmap
 
 ```python
 sns.heatmap(data.corr(), annot=True, cmap="coolwarm")
 ```
+
+![feature_correlation_heatmap.png](feature_correlation_heatmap.png)
+
 - Reveals relationships between features and target label
-
-## Requirements
-
-pandas 2.1.1
-
-numpy 1.26.0
-
-scikit-learn 1.3.1
-
-matplotlib 3.8.0
-
-seaborn 0.13.0
